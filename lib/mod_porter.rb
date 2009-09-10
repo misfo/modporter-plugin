@@ -73,6 +73,7 @@ module ModPorter
 
         if last.is_a?(Array)
           h.map! do |e|
+            return e if e.blank?
             check_signature!(e)
             UploadedFile.new(e)
           end
@@ -81,6 +82,7 @@ module ModPorter
             h = h.first # WTF. file[][some1], file[][some2]. Maybe this work.
           end
 
+          return if h[last].blank?
           check_signature!(h[last])
           h[last] = UploadedFile.new(h[last])
         end
